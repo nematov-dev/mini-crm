@@ -169,3 +169,10 @@ def test_stats(api, make_lead):
     assert by_status == {"new": 1, "contacted": 0, "qualified": 0, "won": 2, "lost": 1}
     assert len(body["daily"]) == 30
     assert body["daily"][-1]["count"] == 4
+
+
+def test_owner_change_is_logged_with_display_name(api, make_lead, other_user):
+    lead = make_lead()
+    api.patch(f"/api/leads/{lead.id}/", {"owner_id": other_user.id}, format="json")
+    change = lead.activities.first().changes["owner"]
+    assert change == {"from": "manager", "to": "other"}

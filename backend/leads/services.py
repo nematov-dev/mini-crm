@@ -14,11 +14,14 @@ from django.utils import timezone
 
 from .models import Lead, LeadActivity, LeadSource, LeadStatus
 
-TRACKED_FIELDS = ("name", "email", "phone", "source", "status", "note", "owner_id")
+TRACKED_FIELDS = ("name", "email", "phone", "source", "status", "note", "owner")
 
 
 def _snapshot(lead: Lead) -> dict:
-    return {field: getattr(lead, field) for field in TRACKED_FIELDS}
+    snap = {field: getattr(lead, field) for field in TRACKED_FIELDS if field != "owner"}
+    # Store the owner's display name so history stays readable even if the user is deleted.
+    snap["owner"] = (lead.owner.get_full_name() or lead.owner.username) if lead.owner else None
+    return snap
 
 
 def _diff(before: dict, after: dict) -> dict:
