@@ -1,10 +1,14 @@
-import { Button, Result } from 'antd'
-import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { Button, Result, Skeleton } from 'antd'
+import { lazy, Suspense } from 'react'
+import { Link, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
 import { RequireAuth } from './components/RequireAuth'
 import { LeadDetailPage } from './pages/LeadDetailPage'
 import { LeadsPage } from './pages/LeadsPage'
 import { LoginPage } from './pages/LoginPage'
+
+// Charts (recharts) are heavy, so the dashboard is loaded on demand.
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
 
 export default function App() {
   return (
@@ -17,7 +21,14 @@ export default function App() {
           </RequireAuth>
         }
       >
-        <Route index element={<Navigate to="/leads" replace />} />
+        <Route
+          index
+          element={
+            <Suspense fallback={<Skeleton active />}>
+              <DashboardPage />
+            </Suspense>
+          }
+        />
         <Route path="leads" element={<LeadsPage />} />
         <Route path="leads/:id" element={<LeadDetailPage />} />
         <Route
