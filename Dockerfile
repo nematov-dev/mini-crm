@@ -25,7 +25,8 @@ RUN DJANGO_SECRET_KEY=build python manage.py collectstatic --noinput \
 USER app
 
 # Demo deploy: create demo users/leads on first start if the DB is empty.
-ENV PORT=8000 \n    SEED_DEMO_DATA=true
+ENV PORT=8000 \
+    SEED_DEMO_DATA=true
 EXPOSE 8000
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["sh", "-c", "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --access-logfile -"]
