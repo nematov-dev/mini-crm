@@ -66,6 +66,14 @@ npm install
 npm run dev                     # http://localhost:5173, /api -> 127.0.0.1:8000 ga proxy qilinadi
 ```
 
+### 3-variant: Render.com'ga deploy
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/nematov-dev/mini-crm)
+
+`render.yaml` (Blueprint) bepul PostgreSQL va bitta Docker web service yaratadi. Root `Dockerfile` React app'ni build qiladi, so'ng uni Django + WhiteNoise orqali API bilan bitta domenda beradi, shuning uchun CORS kerak emas. Secret key avtomatik generatsiya qilinadi, migratsiya va demo ma'lumotlar birinchi ishga tushishda bajariladi.
+
+> Bepul planda servis 15 daqiqa ishlatilmasa uxlab qoladi, keyingi birinchi so'rov ~1 daqiqa olishi mumkin.
+
 **Testlar:**
 
 ```bash
@@ -96,7 +104,9 @@ mini-crm/
 │       ├── pages/           # Login, Leads, LeadDetail, Dashboard
 │       ├── components/      # Layout, LeadFormModal, StatusTag, RequireAuth
 │       └── lib/             # konstantalar, xatolarni formaga bog'lash
-└── docker-compose.yml       # db (postgres) + backend (gunicorn) + frontend (nginx)
+├── docker-compose.yml       # lokal: db (postgres) + backend (gunicorn) + frontend (nginx)
+├── Dockerfile               # deploy: frontend build + backend bitta image'da
+└── render.yaml              # Render Blueprint
 ```
 
 ### So'rov oqimi
