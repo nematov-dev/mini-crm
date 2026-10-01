@@ -6,6 +6,7 @@ Kichik kompaniya uchun lead management system: leadlarni yaratish, ko'rish, qidi
 
 | | |
 |---|---|
+| **Live demo** | **https://mini-crm-qd70.onrender.com** (bepul plan: birinchi ochilish ~1 daqiqa olishi mumkin) |
 | Frontend | http://localhost:8080 (Docker) yoki http://localhost:5173 (dev) |
 | API docs (Swagger) | http://localhost:8080/api/docs/ |
 | Django admin | http://localhost:8080/admin/ |
