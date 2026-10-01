@@ -2,6 +2,7 @@ import { Button, Result } from 'antd'
 import { Link, Navigate, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
 import { RequireAuth } from './components/RequireAuth'
+import { LeadDetailPage } from './pages/LeadDetailPage'
 import { LeadsPage } from './pages/LeadsPage'
 import { LoginPage } from './pages/LoginPage'
 
@@ -18,6 +19,7 @@ export default function App() {
       >
         <Route index element={<Navigate to="/leads" replace />} />
         <Route path="leads" element={<LeadsPage />} />
+        <Route path="leads/:id" element={<LeadDetailPage />} />
         <Route
           path="*"
           element={
