@@ -1,7 +1,8 @@
 import { Button, Result } from 'antd'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
 import { RequireAuth } from './components/RequireAuth'
+import { LeadsPage } from './pages/LeadsPage'
 import { LoginPage } from './pages/LoginPage'
 
 export default function App() {
@@ -15,6 +16,8 @@ export default function App() {
           </RequireAuth>
         }
       >
+        <Route index element={<Navigate to="/leads" replace />} />
+        <Route path="leads" element={<LeadsPage />} />
         <Route
           path="*"
           element={
